@@ -9,7 +9,7 @@ end
 client = Slack::RealTime::Client.new
 client.on :message do |data|
   puts data
-  if data["channel"] == "G0R2UQF50" && data["text"] == "notify"
+  if data["channel"].start_with?("G") && data["text"] == "notify"
     group = client.web_client.groups_info(channel: data['channel'])
     members = group["group"]["members"]
     message = members.map {|member| "<@#{member}>"}.join(" ")
